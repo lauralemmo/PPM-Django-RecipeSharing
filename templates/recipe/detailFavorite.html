@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dettagli ricetta</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0px;
+            font-family: sans-serif;
+        }
+        #header {
+            width: 75%;
+            margin: auto;
+            display: flex;
+            height: 80px;
+        }
+        #header h1 {
+            text-transform: uppercase;
+            color: darkgreen;
+            font-size: 30px;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-top: revert;
+        }
+        .badge-primary {
+            background-color: darkgreen !important;
+        }
+        .badge-primary:hover{
+            background-color: #004900 !important;
+        }
+        #home-img {
+            width: 100%;
+        }
+        h2 {
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
+        p {
+            color: black;
+            font-weight: 100;
+            letter-spacing: 1px;
+            line-height: 27px;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        #footer {
+            text-align: center;
+            background-color: black;
+            height: 60px;
+        }
+        .badge-secondary {
+            border-radius: 0;
+            background-color: lightgrey !important;
+        }
+        .badge-secondary:hover{
+            background-color: darkgray !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header">
+        <h1>Il portale di ricette</h1>
+
+        <div style="margin: auto; margin-right: 0;">
+            <a class="badge badge-primary p-3" href="{% url 'index' %}">Home</a>
+            <a class="badge badge-primary p-3" href="{% url 'dashboard' %}">Area Personale</a>
+        </div>
+    </div>
+
+    <div style="height: 200px; background-color: #8b3847; text-align: center">
+        <br><br><br>
+        <h2 style="color: white">{{ recipe.title }}</h2>
+    </div>
+
+    <br><br><br><br>
+
+
+
+    <div style="text-align: center">
+        {% if not is_favorite and is_authenticated %}
+            <form action="{% url 'addToFavorites' recipe_id=recipe.id %}" method="post">
+                {% csrf_token %}
+                <button class="badge badge-primary pt-3 pb-3 pr-5 pl-5" type="submit">Aggiungi ai preferiti</button>
+            </form>
+        {% endif %}
+
+        {% if is_favorite and is_authenticated %}
+
+            <form action="{% url 'removeFavorite' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                <input type="hidden" name="user_id" value="{{ request.user.id }}">
+                <button class="badge badge-primary pt-3 pb-3 pr-5 pl-5" type="submit">Rimuovi dai preferiti</button>
+            </form>
+
+        {% endif %}
+
+
+        <br><br>
+
+
+        {% block content %}
+          <p>Persons: {{ recipe.persons }}</p>
+          <p>Difficulty: {{ recipe.difficulty }}</p>
+          <p>Preparation Time: {{ recipe.preparation_time }}</p>
+          <p>Ingredients: {{ recipe.ingredients }}</p>
+          <p>Description: {{ recipe.description }}</p>
+        {% endblock %}
+
+    </div>
+
+<br><br><br>
+
+    <div id="footer">
+        <p style="color: white; font-size: 12px; padding-top: 15px;">Progettato e realizzato da: Laura Lemmo (Elaborato Django - PPM)</p>
+    </div>
+
+</body>
+
+</html>

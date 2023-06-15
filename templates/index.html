@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin: 0px;
+            font-family: sans-serif;
+        }
+        #header {
+            width: 75%;
+            margin: auto;
+            display: flex;
+            height: 80px;
+        }
+        #header h1 {
+            text-transform: uppercase;
+            color: darkgreen;
+            font-size: 30px;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-top: revert;
+        }
+        .badge-primary {
+            background-color: darkgreen !important;
+        }
+        .badge-primary:hover{
+            background-color: #004900 !important;
+        }
+        #home-img {
+            width: 100%;
+        }
+        h2 {
+            font-size: 40px;
+            letter-spacing: 2px;
+        }
+        p {
+            color: white;
+            font-weight: 100;
+            letter-spacing: 1px;
+            line-height: 27px;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        #footer {
+            text-align: center;
+            background-color: black;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <h1>Il portale di ricette</h1>
+
+        <div style="margin: auto; margin-right: 0;">
+            {% if not user.is_authenticated %}
+                <a class="badge badge-primary p-3" href="{% url 'register' %}">Registrati</a>
+                <a class="badge badge-primary p-3" href="{% url 'login' %}">Login</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <a class="badge badge-primary p-3" href="{% url 'dashboard' %}">Area Personale</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+    <img id="home-img" src="https://blog.hellofresh.com/wp-content/uploads/2017/05/HF170218_ExtraShot_US_Food_gradients_-30_low-1-e1494342091129.jpg" alt="Descrizione immagine">
+
+    <div style="height: 200px; background-color: #aa656b; text-align: center">
+        <br><br>
+        <p>In questo portale puoi trovare tantissime ricette per poter creare <br>
+            piatti sempre nuovi adatti ad ogni tua esigenza. <br>
+            Sono presenti dagli antipasti ai dolci, dalle ricette adatte a tutti a quelle più elaborate.
+        </p>
+    </div>
+
+    <div style="height: 500px; background-color:#f5d382; text-align: center">
+        <br><br><br><br><br><br>
+        <h2>Iscriviti</h2>
+        <br><br><br>
+        <p style="color: black">Iscrivendoti al portale avrai accesso ad una tua area personale dove poter creare nuove ricette <br>
+            e la possibilità di salvarti le tue ricette preferite</p>
+    </div>
+
+
+    <br><br><br>
+
+    <p style="color: black; text-align: center">Scegli la categoria:</p>
+
+    <br>
+
+    <div class="row" style="text-align: center;">
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-2" style="background-color: #8b3847; padding: 30px;">
+            <a href="{% url 'getAppetizersByTitle' %}">
+                <br>
+                <p style="font-size: 60px; font-weight: 800">A</p>
+                <br>
+                <p>Antipasti</p>
+            </a>
+        </div>
+        <div class="col-md-2" style="background-color: #ad545e; padding: 30px;">
+            <a href="{% url 'getFirstsByTitle' %}">
+                <br>
+                <p style="font-size: 60px; font-weight: 800">P</p>
+                <br>
+                <p>Primi</p>
+            </a>
+        </div>
+        <div class="col-md-2" style="background-color: #d9a771; padding: 30px;">
+            <a href="{% url 'getSecondsByTitle' %}">
+                <br>
+                <p style="font-size: 60px; font-weight: 800">S</p>
+                <br>
+                <p>Secondi</p>
+            </a>
+        </div>
+        <div class="col-md-2" style="background-color: #f5d382; padding: 30px;">
+            <a href="{% url 'getSidesByTitle' %}">
+                <br>
+                <p style="font-size: 60px; font-weight: 800 ">C</p>
+                <br>
+                <p>Contorni</p>
+            </a>
+        </div>
+        <div class="col-md-2" style="background-color: #90bc57; padding: 30px;">
+            <a href="{% url 'getDessertsByTitle' %}">
+                <br>
+                <p style="font-size: 60px; font-weight: 800">D</p>
+                <br>
+                <p>Dolci</p>
+            </a>
+        </div>
+
+    </div>
+
+
+    <br><br><br>
+
+    <div id="footer">
+        <p style="color: white; font-size: 12px; padding-top: 15px;">Progettato e realizzato da: Laura Lemmo (Elaborato Django - PPM)</p>
+    </div>
+
+
+
+</body>
+
+</html>
