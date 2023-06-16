@@ -5,8 +5,7 @@ This application simulates a recipe site where you can access it for consultatio
 #### Necessary prerequisites
 - Python (version 3.9 recommended)
 - Django Framework
-- MySQL
+- SQLite
 
-#### Deployment instructions
-clone the repository and import the project into pycharm (or similar)
-Once the project has been deployed, access the home with the following URI: localhost:[port]/recipesharing
+#### Link Railway
+https://web-production-404d.up.railway.app/
